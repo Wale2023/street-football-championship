@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Street Football Championship</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#080d0a;color:#fff}
+header{background:#101a13;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #26382a;position:sticky;top:0;z-index:10}
+.logo{font-size:19px;font-weight:900;color:#b5ff50}
+.logo span{color:white}
+nav{display:flex;gap:22px}
+nav a{color:#ddd;text-decoration:none;font-size:14px}
+nav a:hover{color:#b5ff50}
+.hero{padding:85px 7%;background:linear-gradient(90deg,rgba(3,12,6,.96),rgba(3,12,6,.55)),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600') center/cover;min-height:410px;display:flex;align-items:center}
+.hero-content{max-width:650px}
+.tag{color:#b5ff50;font-size:12px;letter-spacing:3px;font-weight:bold}
+h1{font-size:clamp(38px,7vw,68px);line-height:1.05;margin:18px 0}
+h1 span{color:#b5ff50}
+.hero p{color:#c4cfc5;line-height:1.7}
+.btn{display:inline-block;background:#b5ff50;color:#101a13;padding:14px 22px;border-radius:5px;text-decoration:none;font-weight:bold;margin-top:25px}
+section{padding:55px 7%}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:15px}
+.section-head h2{font-size:25px}
+.section-head span{color:#b5ff50;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:-35px;position:relative;padding:0 7%}
+.stat,.card{background:#111b14;border:1px solid #26382a;border-radius:9px;padding:22px}
+.stat strong{font-size:30px;color:#b5ff50;display:block;margin-bottom:8px}
+.stat small{color:#a5b2a8}
+.teams{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.team{text-align:center}
+.team .crest{font-size:38px;margin-bottom:12px}
+.team h3{font-size:15px}
+.team p{color:#9da99f;font-size:12px;margin-top:7px}
+.fixtures{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.match{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.club{flex:1;text-align:center;font-weight:bold;font-size:13px}
+.score{font-size:23px;font-weight:bold;color:#b5ff50;white-space:nowrap}
+.match-info{text-align:center;color:#92a092;font-size:11px;margin-top:13px}
+table{width:100%;border-collapse:collapse;background:#111b14;border-radius:8px;overflow:hidden}
+th,td{padding:15px 12px;text-align:center;border-bottom:1px solid #26382a;font-size:13px}
+th{color:#b5ff50;font-size:11px}
+td:first-child,th:first-child{text-align:left}
+td:nth-child(2){font-weight:bold;text-align:left}
+footer{padding:35px 7%;text-align:center;background:#101a13;color:#9da99f;font-size:13px}
+footer strong{color:#b5ff50}
+@media(max-width:700px){
+ header{flex-direction:column;gap:16px}
+ nav{gap:13px;flex-wrap:wrap;justify-content:center}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .teams{grid-template-columns:repeat(2,1fr)}
+ .fixtures{grid-template-columns:1fr}
+ section{padding:40px 5%}
+ .stats{padding:0 5%}
+ th,td{padding:12px 5px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">⚽ STREET<span> CHAMPIONSHIP</span></div>
+ <nav>
+  <a href="#home">Home</a>
+  <a href="#teams">Teams</a>
+  <a href="#fixtures">Fixtures</a>
+  <a href="#table">Standings</a>
+  <a href="#scorers">Scorers</a>
+ </nav>
+</header>
+
+<div class="hero" id="home">
+ <div class="hero-content">
+  <div class="tag">THE STREETS. THE PASSION. THE GAME.</div>
+  <h1>ONE STREET.<br>ONE <span>CHAMPION.</span></h1>
+  <p>Welcome to the official home of the Street Football Championship. Eight teams, one trophy and an unforgettable battle for street football glory.</p>
+  <a href="#fixtures" class="btn">EXPLORE THE MATCHES →</a>
+ </div>
+</div>
+
+<div class="stats">
+ <div class="stat"><strong>08</strong><small>Participating Teams</small></div>
+ <div class="stat"><strong>00</strong><small>Matches Played</small></div>
+ <div class="stat"><strong>00</strong><small>Goals Scored</small></div>
+ <div class="stat"><strong>01</strong><small>Championship Trophy</small></div>
+</div>
+
+<section id="teams">
+ <div class="section-head"><h2>COMPETING TEAMS</h2><span>01 / TEAMS</span></div>
+ <div class="teams" id="teams-list"></div>
+</section>
+
+<section id="fixtures">
+ <div class="section-head"><h2>FIXTURES & RESULTS</h2><span>02 / MATCH CENTRE</span></div>
+ <div class="fixtures" id="fixtures-list"></div>
+</section>
+
+<section id="table">
+ <div class="section-head"><h2>LEAGUE STANDINGS</h2><span>03 / TABLE</span></div>
+ <div style="overflow-x:auto">
+ <table>
+  <thead><tr><th>POS</th><th>TEAM</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>PTS</th></tr></thead>
+  <tbody id="table-body"></tbody>
+ </table>
+ </div>
+</section>
+
+<section id="scorers">
+ <div class="section-head"><h2>TOP SCORERS</h2><span>04 / PLAYERS</span></div>
+ <div class="card" style="text-align:center;color:#a5b2a8">
+  <div style="font-size:35px;margin-bottom:12px">🏆</div>
+  Top scorer statistics will appear here when the tournament begins.
+ </div>
+</section>
+
+<footer>
+ <strong>STREET FOOTBALL CHAMPIONSHIP</strong>
+ <p style="margin-top:10px">Celebrating talent, teamwork and the beautiful game.</p>
+ <p style="margin-top:10px">© 2026 Street Football Championship. All rights reserved.</p>
+</footer>
+
+<script>
+const teams = [
+ {name:"Street Kings",icon:"👑"},
+ {name:"Young Stars",icon:"⭐"},
+ {name:"The Warriors",icon:"🛡️"},
+ {name:"Dream FC",icon:"⚡"},
+ {name:"United Boys",icon:"🔴"},
+ {name:"Black Panthers",icon:"🐆"},
+ {name:"Golden Eagles",icon:"🦅"},
+ {name:"City Legends",icon:"🏆"}
+];
+
+const matches = [];
+const standings = teams.map(t=>({
+ name:t.name,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0
+}));
+
+document.getElementById("teams-list").innerHTML = teams.map(t=>`
+ <div class="card team">
+  <div class="crest">${t.icon}</div>
+  <h3>${t.name}</h3>
+  <p>STREET CHAMPIONSHIP</p>
+ </div>
+`).join("");
+
+const pairs = [];
+for(let i=0;i<teams.length;i++){
+ for(let j=i+1;j<teams.length;j++){
+  pairs.push({home:teams[i].name,away:teams[j].name});
+ }
+}
+
+document.getElementById("fixtures-list").innerHTML = pairs.map((m,i)=>`
+ <div class="card">
+  <div class="match">
+   <div class="club">${m.home}</div>
+   <div class="score">VS</div>
+   <div class="club">${m.away}</div>
+  </div>
+  <div class="match-info">MATCH ${i+1} · TO BE SCHEDULED</div>
+ </div>
+`).join("");
+
+document.getElementById("table-body").innerHTML = standings.map((t,i)=>`
+ <tr>
+  <td>${i+1}</td><td>${t.name}</td><td>${t.p}</td>
+  <td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
+  <td>${t.gf-t.ga}</td><td>${t.pts}</td>
+ </tr>
+`).join("");
+</script>
+</body>
+</html>
